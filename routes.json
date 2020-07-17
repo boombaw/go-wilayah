@@ -1,0 +1,56 @@
+[
+    {
+        "path": "",
+        "method": "GET",
+        "module": "home",
+        "endpoint_filter": "home"
+    },
+    {
+        "path": "/provinsi",
+        "method": "GET",
+        "module": "provinsi",
+        "endpoint_filter": "provinsi"
+    },
+    {
+        "path": "/provinsi/:id",
+        "method": "GET",
+        "module": "provinsi",
+        "endpoint_filter": "provinsi_detail"
+    },
+    {
+        "path": "/kabupaten",
+        "method": "GET",
+        "module": "kabupaten",
+        "endpoint_filter": "kabupaten"
+    },
+    {
+        "path": "/kabupaten/:id",
+        "method": "GET",
+        "module": "kabupaten",
+        "endpoint_filter": "kabupaten_detail"
+    },
+    {
+        "path": "/kecamatan",
+        "method": "GET",
+        "module": "kecamatan",
+        "endpoint_filter": "kecamatan"
+    },
+    {
+        "path": "/kecamatan/:id",
+        "method": "GET",
+        "module": "kecamatan",
+        "endpoint_filter": "kecamatan_detail"
+    },
+    {
+        "path": "/kelurahan",
+        "method": "GET",
+        "module": "kelurahan",
+        "endpoint_filter": "kelurahan"
+    },
+    {
+        "path": "/kelurahan/:id",
+        "method": "GET",
+        "module": "kelurahan",
+        "endpoint_filter": "kelurahan_detail"
+    }
+]
