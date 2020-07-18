@@ -2,6 +2,10 @@ package handler
 
 import (
 	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/boombaw/go-wilayah/domain/provinsi"
@@ -28,16 +32,21 @@ func (p *Province) Handle(c echo.Context) (err error) {
 	var prov []provinsi.Provinsi
 
 	err = p.DBx.Select(&prov, "SELECT * FROM provinces")
-	if err != nil {
-		util.LogEntry(ctx).WithField("error", err).Error("Error while reading table")
+
+	switch err {
+	case nil:
+		util.LogEntry(ctx).Info(fmt.Sprint("Success read provinces "))
+	case sql.ErrNoRows:
+		util.LogEntry(ctx).WithField("error", err).Info(fmt.Sprint("data provinces not found"))
+		return errors.New("data not found")
+	default:
+		log.Printf("error: %s\n", err)
 		return
 	}
 
 	resp.Code = http.StatusOK
 	resp.Message = http.StatusText(http.StatusOK)
 	resp.Data = prov
-
-	util.LogEntry(ctx).WithField("response", resp).Info("Response list provinsi")
 
 	return c.JSON(http.StatusOK, resp)
 }

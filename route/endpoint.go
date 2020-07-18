@@ -25,12 +25,15 @@ var endpoint = map[string]Handler{
 	"provinsi":        provinsi.NewProvince(db),
 	"provinsi_detail": provinsi.NewDetailProvince(db),
 	// Kabupaten
-	"kabupaten":        regencies.NewRegencies(db),
-	"kabupaten_detail": regencies.NewDetailRegencies(db),
+	"kabupaten":             regencies.NewRegencies(db),
+	"kabupaten_detail":      regencies.NewDetailRegencies(db),
+	"kabupaten_by_provinsi": regencies.NewDetailRegenciesByProv(db),
 	// Kecamatan
 	"kecamatan":        districts.NewDistricts(db),
 	"kecamatan_detail": districts.NewDetailDistricts(db),
+	"kecamatan_by_kab": districts.NewDetailByRegency(db),
 	// Kelurahan
 	"kelurahan":        villages.NewVillages(db),
 	"kelurahan_detail": villages.NewDetailVillage(db),
+	"kelurahan_by_kec": villages.NewDetailByDistrict(db),
 }

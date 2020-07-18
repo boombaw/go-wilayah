@@ -3,9 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/boombaw/go-wilayah/route"
 	"github.com/jmoiron/sqlx"
+	"github.com/joho/godotenv"
 )
 
 var db *sqlx.DB
@@ -17,5 +19,10 @@ func main() {
 		panic(fmt.Sprint(err))
 	}
 	fmt.Println(string(data))
-	e.Logger.Fatal(e.Start(":5000"))
+
+	err = godotenv.Load()
+	if err != nil {
+		panic(fmt.Sprint("Failed to load .env file : ", err))
+	}
+	e.Logger.Fatal(e.Start(":" + os.Getenv("port")))
 }

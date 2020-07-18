@@ -24,6 +24,12 @@
         "endpoint_filter": "kabupaten"
     },
     {
+        "path": "/provinsi/:provid/kabupaten",
+        "method": "GET",
+        "module": "kabupaten",
+        "endpoint_filter": "kabupaten_by_provinsi"
+    },
+    {
         "path": "/kabupaten/:id",
         "method": "GET",
         "module": "kabupaten",
@@ -36,6 +42,12 @@
         "endpoint_filter": "kecamatan"
     },
     {
+        "path": "/kabupaten/:kabid/kecamatan",
+        "method": "GET",
+        "module": "kecamatan",
+        "endpoint_filter": "kecamatan_by_kab"
+    },
+    {
         "path": "/kecamatan/:id",
         "method": "GET",
         "module": "kecamatan",
@@ -46,6 +58,12 @@
         "method": "GET",
         "module": "kelurahan",
         "endpoint_filter": "kelurahan"
+    },
+    {
+        "path": "/kecamatan/:kecid/kelurahan",
+        "method": "GET",
+        "module": "kelurahan",
+        "endpoint_filter": "kelurahan_by_kec"
     },
     {
         "path": "/kelurahan/:id",

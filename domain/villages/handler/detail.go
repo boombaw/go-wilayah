@@ -37,9 +37,9 @@ func (d *DetailVillage) Handle(c echo.Context) (err error) {
 
 	switch err {
 	case nil:
-		util.LogEntry(ctx).WithField("info", resp).Info(fmt.Sprint("Success read villages with id", id))
+		util.LogEntry(ctx).Info(fmt.Sprint("Success read villages with id ", id))
 	case sql.ErrNoRows:
-		util.LogEntry(ctx).WithField("error", resp).Info(fmt.Sprint("data villages with id ", id, " not found"))
+		util.LogEntry(ctx).WithField("error", err).Info(fmt.Sprint("data villages with id ", id, " not found"))
 		return errors.New("data not found")
 	default:
 		log.Printf("error: %s\n", err)

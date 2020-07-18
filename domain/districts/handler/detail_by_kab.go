@@ -14,13 +14,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Districts struct
-type Districts struct {
+type DetailByRegency struct {
 	DBx *sqlx.DB
 }
 
-// Handle for Districts handler
-func (p *Districts) Handle(c echo.Context) (err error) {
+// Handle Detail District By Regency handler
+func (d *DetailByRegency) Handle(c echo.Context) (err error) {
 	ctx := c.Request().Context()
 
 	if ctx == nil {
@@ -29,15 +28,17 @@ func (p *Districts) Handle(c echo.Context) (err error) {
 
 	var resp util.Response
 
+	var kabid = c.Param("kabid")
+
 	var dist []districts.District
 
-	err = p.DBx.Select(&dist, "SELECT * FROM districts")
+	err = d.DBx.Select(&dist, "SELECT * FROM districts WHERE regency_id = $1", kabid)
 
 	switch err {
 	case nil:
-		util.LogEntry(ctx).Info(fmt.Sprint("Success read districts"))
+		util.LogEntry(ctx).Info(fmt.Sprint("Success read districts with kabid ", kabid))
 	case sql.ErrNoRows:
-		util.LogEntry(ctx).WithField("error", err).Info(fmt.Sprint("data districts not found"))
+		util.LogEntry(ctx).WithField("error", err).Info(fmt.Sprint("data districts with kabid ", kabid, " not found"))
 		return errors.New("data not found")
 	default:
 		log.Printf("error: %s\n", err)
@@ -51,7 +52,6 @@ func (p *Districts) Handle(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, resp)
 }
 
-// NewDistricts func
-func NewDistricts(db *sqlx.DB) *Districts {
-	return &Districts{DBx: db}
+func NewDetailByRegency(db *sqlx.DB) *DetailByRegency {
+	return &DetailByRegency{DBx: db}
 }

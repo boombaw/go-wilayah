@@ -14,13 +14,13 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Villages struct
-type Villages struct {
+// DetailByDistrict struct
+type DetailByDistrict struct {
 	DBx *sqlx.DB
 }
 
-// Handle for Villages handler
-func (v *Villages) Handle(c echo.Context) (err error) {
+// Handle Detail Village By District handler
+func (d *DetailByDistrict) Handle(c echo.Context) (err error) {
 	ctx := c.Request().Context()
 
 	if ctx == nil {
@@ -29,19 +29,23 @@ func (v *Villages) Handle(c echo.Context) (err error) {
 
 	var resp util.Response
 
+	var kecid = c.Param("kecid")
+
 	var village []villages.Village
 
-	err = v.DBx.Select(&village, "SELECT * FROM villages")
+	err = d.DBx.Select(&village, "SELECT * FROM villages WHERE district_id = $1", kecid)
+
 	switch err {
 	case nil:
-		util.LogEntry(ctx).Info(fmt.Sprint("Success read villages"))
+		util.LogEntry(ctx).Info(fmt.Sprint("Success read villages with kecid ", kecid))
 	case sql.ErrNoRows:
-		util.LogEntry(ctx).WithField("error", err).Info(fmt.Sprint("data villages not found"))
+		util.LogEntry(ctx).WithField("error", err).Info(fmt.Sprint("data villages with kecid ", kecid, " not found"))
 		return errors.New("data not found")
 	default:
 		log.Printf("error: %s\n", err)
 		return
 	}
+
 	resp.Code = http.StatusOK
 	resp.Message = http.StatusText(http.StatusOK)
 	resp.Data = village
@@ -49,7 +53,7 @@ func (v *Villages) Handle(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, resp)
 }
 
-// NewVillages func
-func NewVillages(db *sqlx.DB) *Villages {
-	return &Villages{DBx: db}
+// NewDetailByDistrict func
+func NewDetailByDistrict(db *sqlx.DB) *DetailByDistrict {
+	return &DetailByDistrict{DBx: db}
 }
