@@ -24,5 +24,10 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprint("Failed to load .env file : ", err))
 	}
-	e.Logger.Fatal(e.Start(":" + os.Getenv("port")))
+
+	port := os.Getenv("port")
+	if port == "" {
+		port = "8000"
+	}
+	e.Logger.Fatal(e.Start(":" + port))
 }
