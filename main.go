@@ -7,7 +7,6 @@ import (
 
 	"github.com/boombaw/go-wilayah/route"
 	"github.com/jmoiron/sqlx"
-	"github.com/joho/godotenv"
 )
 
 var db *sqlx.DB
@@ -19,11 +18,6 @@ func main() {
 		panic(fmt.Sprint(err))
 	}
 	fmt.Println(string(data))
-
-	err = godotenv.Load()
-	if err != nil {
-		panic(fmt.Sprint("Failed to load .env file : ", err))
-	}
 
 	port := os.Getenv("port")
 	if port == "" {
