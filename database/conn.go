@@ -26,7 +26,7 @@ func Init() *sqlx.DB {
 	urlConnection += "host=" + fmt.Sprint(os.Getenv("db_host")) + " "
 	urlConnection += "port=" + fmt.Sprint(os.Getenv("db_port")) + " "
 	urlConnection += "dbname=" + fmt.Sprint(os.Getenv("db_name")) + " "
-	urlConnection += "sslmode=disable"
+	urlConnection += "sslmode=" + fmt.Sprint(os.Getenv("db_sslmode"))
 
 	log.Println("Connecting to DB Server " + fmt.Sprint(os.Getenv("db_host")) + ":" + fmt.Sprint(os.Getenv("db_port")) + "...With DB Name " + fmt.Sprint(os.Getenv("db_name")))
 
