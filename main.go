@@ -21,7 +21,7 @@ func main() {
 
 	port := os.Getenv("port")
 	if port == "" {
-		port = "8000"
+		port = "8080"
 	}
 	e.Logger.Fatal(e.Start(":" + port))
 }
